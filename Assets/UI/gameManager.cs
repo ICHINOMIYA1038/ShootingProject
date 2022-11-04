@@ -27,6 +27,8 @@ public class gameManager : MonoBehaviour
     GameObject gameOverCanvas;
     [SerializeField]
     GameObject gameMainCanvas;
+    [SerializeField]
+    GameObject gameClearCanvas;
 
     public int currentScene;
     public const int TITLE_SCENE = 0;
@@ -44,6 +46,7 @@ public class gameManager : MonoBehaviour
         HP = maxHP;
         moral = maxMoral;
         gameOverCanvas.SetActive(false);
+        gameClearCanvas.SetActive(false);
         gameMainCanvas.SetActive(true);
         hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //moralText = GameObject.Find("moralText").GetComponent<TextMeshProUGUI>();
@@ -104,9 +107,18 @@ public class gameManager : MonoBehaviour
             gameMainCanvas.SetActive(false);
             CanvasGroup canvasGroup = gameOverCanvas.GetComponent<CanvasGroup>();
             StartCoroutine("setMouse");
-            
+    
         }
-        
+
+        if (flag == CLEAR_SCENE)
+        {
+            gameClearCanvas.SetActive(true);
+            gameMainCanvas.SetActive(false);
+            CanvasGroup canvasGroup = gameClearCanvas.GetComponent<CanvasGroup>();
+            StartCoroutine("setMouse");
+
+        }
+
         /*
         if (SceneManager.GetActiveScene().name.Equals("01"))
         {

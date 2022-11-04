@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using util;
 
-public  class Building : MonoBehaviour ,iApplicableDamaged
+public class Building : MonoBehaviour ,iApplicableDamaged
 {
    
-    int HP;
+    protected int HP;
     [SerializeField]
-    int maxHP;
+    protected int maxHP;
     [SerializeField]
     GameObject explosionEffect;
 
@@ -33,13 +33,13 @@ public  class Building : MonoBehaviour ,iApplicableDamaged
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         HP = maxHP;
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         
     }

@@ -39,7 +39,6 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
     public void damaged(int amount)
     {
         HP -= amount;
-        Debug.Log(HP);
         if (HP <= 0)
         {
             die();
