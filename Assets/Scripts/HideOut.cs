@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using util;
 
-public class HideOut : Building
+public class HideOut : Building,iApplicableDamaged
 {
     [SerializeField]
     gameManager manager;
@@ -35,9 +36,7 @@ public class HideOut : Building
         {
             die();
         }
-        Debug.Log("maxHP:" + maxHP);
-        Debug.Log("HP:" + HP);
-        Debug.Log((float)HP / (float)maxHP);
-        hPGaugeController.panelWidth = ((float)HP / (float)maxHP) * hPGaugeController.panelSize.x;
+        Debug.Log(hPGaugeController.panelWidth);
+        hPGaugeController.panelWidth = ((float)HP / (float)maxHP) * hPGaugeController.panelWidth;
     }
 }

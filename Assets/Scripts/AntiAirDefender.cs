@@ -5,14 +5,14 @@ using UnityEngine;
 public class AntiAirDefender : Enemy
 {
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         maxHP = 1;
         HP = 1;
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         
     }

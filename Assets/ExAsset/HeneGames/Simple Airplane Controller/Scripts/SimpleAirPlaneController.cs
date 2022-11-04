@@ -342,8 +342,7 @@ namespace HeneGames.Airplane
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log(collision.gameObject.name);
-            if (collision.gameObject.name.Equals("Terrain"))
+            if (collision.gameObject.name.Equals("Map1"))
             {
                 die();
             }

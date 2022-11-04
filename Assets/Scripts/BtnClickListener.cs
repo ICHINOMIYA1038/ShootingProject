@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class BtnClickListener : MonoBehaviour
 {
     Button button;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +19,11 @@ public class BtnClickListener : MonoBehaviour
         {
             button.onClick.AddListener(goTitleBtnClick);
         }
-      
+        if (button.name.Equals("Btn_GameClear"))
+        {
+            button.onClick.AddListener(goTitleBtnClick);
+        }
+
 
     }
 

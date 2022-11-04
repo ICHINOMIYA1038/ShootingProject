@@ -9,10 +9,12 @@ namespace HeneGames.Airplane
     {
         [Header("References")]
         [SerializeField] private SimpleAirPlaneController airPlaneController;
-        [SerializeField] private CinemachineFreeLook freeLook;
+        [SerializeField] private CinemachineVirtualCamera camera;
         [Header("Camera values")]
         [SerializeField] private float cameraDefaultFov = 60f;
         [SerializeField] private float cameraTurboFov = 40f;
+        [SerializeField]
+        gameManager gameManager;
 
         private void Start()
         {
@@ -45,7 +47,7 @@ namespace HeneGames.Airplane
         public void ChangeCameraFov(float _fov)
         {
             float _deltatime = Time.deltaTime * 100f;
-            freeLook.m_Lens.FieldOfView = Mathf.Lerp(freeLook.m_Lens.FieldOfView, _fov, 0.05f * _deltatime);
+            camera.m_Lens.FieldOfView = Mathf.Lerp(camera.m_Lens.FieldOfView, _fov, 0.05f * _deltatime);
         }
     }
 }

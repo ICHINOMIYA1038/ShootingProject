@@ -107,7 +107,8 @@ public class gameManager : MonoBehaviour
             gameMainCanvas.SetActive(false);
             CanvasGroup canvasGroup = gameOverCanvas.GetComponent<CanvasGroup>();
             StartCoroutine("setMouse");
-    
+            //Time.timeScale = 0.2f;
+
         }
 
         if (flag == CLEAR_SCENE)
