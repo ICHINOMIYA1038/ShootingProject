@@ -1,0 +1,5 @@
+
+
+//効果音
+1.プロペラ　heri.mp3　https://pocket-se.info/archives/549/　クレジット表記必要
+turbo.mp3 https://soundeffect-lab.info/sound/machine/ 戦闘機内飛行中

@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
     float speed = 1.0f;
     [SerializeField]
     GameObject explosionEffect;
+    AudioSource explosionSound;
 
 
 
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
     protected void Start()
     {
         HP = maxHP;
+        explosionSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,6 +50,7 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
 
     public void die()
     {
+        
         Instantiate(explosionEffect, transform.position + new Vector3(0f, 5f, 0f), transform.rotation);
         Destroy(gameObject);
     }

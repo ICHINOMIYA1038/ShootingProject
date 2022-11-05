@@ -10,17 +10,26 @@ namespace HeneGames.Airplane
         [Header("References")]
         [SerializeField] private SimpleAirPlaneController airPlaneController;
         [SerializeField] private CinemachineVirtualCamera camera;
+        [SerializeField] private CinemachineVirtualCamera focusCamera;
         [Header("Camera values")]
         [SerializeField] private float cameraDefaultFov = 60f;
-        [SerializeField] private float cameraTurboFov = 40f;
+        [SerializeField] private float cameraTurboFov = 80f;
         [SerializeField]
         gameManager gameManager;
+        [SerializeField]
+        GameObject mapcanvas = null;
+        GameObject focusCanvas;
+        [SerializeField]
+        AudioSource turboSE;
+        bool soundNow = false;
 
         private void Start()
         {
             //Lock and hide mouse
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            mapcanvas = GameObject.Find("mapCanvas");
+            focusCanvas = GameObject.Find("focusCanvas");
         }
 
         private void Update()
@@ -33,13 +42,49 @@ namespace HeneGames.Airplane
             //Turbo
             if(!airPlaneController.PlaneIsDead())
             {
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetAxis("Focus")!=0)
                 {
                     ChangeCameraFov(cameraTurboFov);
+                    camera.gameObject.SetActive(false);
+                    focusCamera.gameObject.SetActive(true);
+                    mapcanvas.SetActive(false);
+                    focusCanvas.SetActive(true);
+                }
+                else if (Input.GetAxis("Turbo") != 0)
+                {
+                    ChangeCameraFov(cameraDefaultFov);
+                    focusCamera.gameObject.SetActive(false);
+                    camera.gameObject.SetActive(true);
+                    mapcanvas.SetActive(true);
+                    focusCanvas.SetActive(false);
+                    float _deltatime = Time.deltaTime * 100f;
+                    camera.m_Lens.FieldOfView = Mathf.Lerp(camera.m_Lens.FieldOfView, cameraDefaultFov + 20f, 0.05f * _deltatime);
                 }
                 else
                 {
+                    float _deltatime = Time.deltaTime * 100f;
+                    camera.m_Lens.FieldOfView = Mathf.Lerp(camera.m_Lens.FieldOfView, cameraDefaultFov, 0.05f * _deltatime);
                     ChangeCameraFov(cameraDefaultFov);
+                    focusCamera.gameObject.SetActive(false);
+                    camera.gameObject.SetActive(true);
+                    mapcanvas.SetActive(true);
+                    focusCanvas.SetActive(false);
+
+                }
+
+                if (Input.GetAxis("Turbo") != 0)
+                {
+                    if (!soundNow)
+                    {
+                        soundNow = true;
+                        turboSE.Play();
+                    }
+                    
+                }
+                else
+                {
+                    soundNow = false;
+                    turboSE.Stop();
                 }
             }
         }
@@ -47,7 +92,7 @@ namespace HeneGames.Airplane
         public void ChangeCameraFov(float _fov)
         {
             float _deltatime = Time.deltaTime * 100f;
-            camera.m_Lens.FieldOfView = Mathf.Lerp(camera.m_Lens.FieldOfView, _fov, 0.05f * _deltatime);
+            focusCamera.m_Lens.FieldOfView = Mathf.Lerp(focusCamera.m_Lens.FieldOfView, _fov, 0.05f * _deltatime);
         }
     }
 }
