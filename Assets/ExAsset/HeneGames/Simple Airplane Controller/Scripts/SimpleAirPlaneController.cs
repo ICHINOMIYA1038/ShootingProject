@@ -24,7 +24,9 @@ namespace HeneGames.Airplane
 
         private GameObject gamemanager;
         private gameManager manager;
-
+        AudioSource impuctAudioSource;
+        [SerializeField]
+        AudioClip impuctSoundClip;
         #endregion+
 
         private int HP { get; set; }
@@ -113,7 +115,7 @@ namespace HeneGames.Airplane
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
             //SetupColliders(crashCollidersRoot);
-
+            impuctAudioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -346,6 +348,8 @@ namespace HeneGames.Airplane
             {
                 die();
             }
+            impuctAudioSource.PlayOneShot(impuctSoundClip);
+
 
         }
         #endregion
