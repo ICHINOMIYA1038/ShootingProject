@@ -6,14 +6,15 @@ using util;
 public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
 {
     bool isAlive = true;
+    [SerializeField]
     bool canMoveForward=false;
     [SerializeField]
     protected int maxHP;
     protected int HP;
+    [SerializeField]
     float speed = 1.0f;
     [SerializeField]
     GameObject explosionEffect;
-    AudioSource explosionSound;
 
 
 
@@ -21,13 +22,13 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
     protected void Start()
     {
         HP = maxHP;
-        explosionSound = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
     protected void Update()
     {
-        
+        moveForward();
     }
 
     void moveForward()

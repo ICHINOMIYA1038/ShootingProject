@@ -28,7 +28,7 @@ public class HideOut : Building,iApplicableDamaged
         {
             manager.sceneChange(gameManager.CLEAR_SCENE);
         }
-        
+        Debug.Log("die");
         base.die();
     }
 
@@ -39,7 +39,6 @@ public class HideOut : Building,iApplicableDamaged
         {
             die();
         }
-        Debug.Log(hPGaugeController.panelWidth);
         hPGaugeController.panelWidth = ((float)HP / (float)maxHP) * hPGaugeController.panelWidth;
     }
 }

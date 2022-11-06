@@ -36,17 +36,16 @@ namespace HeneGames.Airplane
         [Header("Wing trail effects")]
         [Range(0.01f, 1f)]
         [SerializeField] private float trailThickness = 0.045f;
-        [SerializeField] private TrailRenderer[] wingTrailEffects;
 
         [Header("Rotating speeds")]
         [Range(5f, 500f)]
-        [SerializeField] private float yawSpeed = 50f;
+        [SerializeField] public float yawSpeed = 50f;
 
         [Range(5f, 500f)]
-        [SerializeField] private float pitchSpeed = 100f;
+        [SerializeField] public float pitchSpeed = 100f;
 
         [Range(5f, 500f)]
-        [SerializeField] private float rollSpeed = 200f;
+        [SerializeField] public float rollSpeed = 200f;
 
         [Header("Rotating speeds multiplers when turbo is used")]
         [Range(0.1f, 5f)]
@@ -110,7 +109,7 @@ namespace HeneGames.Airplane
 
             //Get and set rigidbody
             rb = GetComponent<Rigidbody>();
-            rb.isKinematic = true;
+            //rb.isKinematic = true;
             rb.useGravity = false;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
@@ -120,29 +119,15 @@ namespace HeneGames.Airplane
 
         private void Update()
         {
-            AudioSystem();
 
             //Airplane move only if not dead
             if (!planeIsDead&&manager.getCurrentScene()==gameManager.MAIN_SCENE)
             {
                 Movement();
 
-                //Rotate propellers if any
-                if (propellers.Length > 0)
-                {
-                    RotatePropellers(propellers);
-                }
-            }
-            else
-            {
-                ChangeWingTrailEffectThickness(0f);
             }
 
-            //Control lights if any
-            if (turbineLights.Length > 0)
-            {
-                ControlEngineLights(turbineLights, currentEngineLightIntensity);
-            }
+
 
             //Crash
             
@@ -209,9 +194,6 @@ namespace HeneGames.Airplane
                 //Engine lights
                 currentEngineLightIntensity = turbineLightTurbo;
 
-                //Effects
-                ChangeWingTrailEffectThickness(trailThickness);
-
                 //Audio
                 currentEngineSoundPitch = turboSoundPitch;
             }
@@ -227,9 +209,6 @@ namespace HeneGames.Airplane
                 //Engine lights
                 currentEngineLightIntensity = turbineLightDefault;
 
-                //Effects
-                ChangeWingTrailEffectThickness(0f);
-
                 //Audio
                 currentEngineSoundPitch = defaultSoundPitch;
             }
@@ -237,83 +216,8 @@ namespace HeneGames.Airplane
 
         #endregion
 
-        #region Audio
-        private void AudioSystem()
-        {
-            engineSoundSource.pitch = Mathf.Lerp(engineSoundSource.pitch, currentEngineSoundPitch, 10f * Time.deltaTime);
-
-            if (planeIsDead)
-            {
-                engineSoundSource.volume = Mathf.Lerp(engineSoundSource.volume, 0f, 0.1f);
-            }
-        }
-
-        #endregion
 
         #region Private methods
-        /*
-        private void SetupColliders(Transform _root)
-        {
-            //Get colliders from root transform
-            Collider[] colliders = _root.GetComponentsInChildren<Collider>();
-
-            //If there are colliders put components in them
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                //Change collider to trigger
-                colliders[i].isTrigger = true;
-
-                GameObject _currentObject = colliders[i].gameObject;
-
-                //Add airplane collider to it and put it on the list
-                SimpleAirPlaneCollider _airplaneCollider = _currentObject.AddComponent<SimpleAirPlaneCollider>();
-                airPlaneColliders.Add(_airplaneCollider);
-
-                //Add rigid body to it
-                Rigidbody _rb = _currentObject.AddComponent<Rigidbody>();
-                _rb.useGravity = false;
-                _rb.isKinematic = true;
-                _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-            }
-        }
-        */
-
-        private void RotatePropellers(GameObject[] _rotateThese)
-        {
-            float _propelSpeed = currentSpeed * propelSpeedMultiplier;
-
-            for (int i = 0; i < _rotateThese.Length; i++)
-            {
-                _rotateThese[i].transform.Rotate(Vector3.forward * -_propelSpeed * Time.deltaTime);
-            }
-        }
-
-        private void ControlEngineLights(Light[] _lights, float _intensity)
-        {
-            float _propelSpeed = currentSpeed * propelSpeedMultiplier;
-
-            for (int i = 0; i < _lights.Length; i++)
-            {
-                if(!planeIsDead)
-                {
-                    _lights[i].intensity = Mathf.Lerp(_lights[i].intensity, _intensity, 10f * Time.deltaTime);
-                }
-                else
-                {
-                    _lights[i].intensity = Mathf.Lerp(_lights[i].intensity, 0f, 10f * Time.deltaTime);
-                }
-               
-            }
-        }
-
-        private void ChangeWingTrailEffectThickness(float _thickness)
-        {
-            for (int i = 0; i < wingTrailEffects.Length; i++)
-            {
-                wingTrailEffects[i].startWidth = Mathf.Lerp(wingTrailEffects[i].startWidth, _thickness, Time.deltaTime * 10f);
-            }
-        }
-
        
 
         private void Crash()

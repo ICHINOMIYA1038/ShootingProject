@@ -108,6 +108,8 @@
     <Compile Include="Assets\Scripts\HideOut.cs" />
     <Compile Include="Assets\ExAsset\EffectExamples\Shared\Scripts\GunAim.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
+    <Compile Include="Assets\WW2 Armed Forces Demo\Scripts\Scroll_Track.cs" />
+    <Compile Include="Assets\Scripts\Chariot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

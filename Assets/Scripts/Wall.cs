@@ -49,7 +49,6 @@ public class Wall : MonoBehaviour
 
         if(distance < detectDistance)
         {
-            Debug.Log(1 - distance / detectDistance);
             meshrenderer.material.SetColor("_Color", new Color(0.27f, 1f, 0f, (1 - distance / detectDistance)*1f));
         }
     }

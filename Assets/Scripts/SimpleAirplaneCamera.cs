@@ -49,6 +49,9 @@ namespace HeneGames.Airplane
                     focusCamera.gameObject.SetActive(true);
                     mapcanvas.SetActive(false);
                     focusCanvas.SetActive(true);
+                    airPlaneController.yawSpeed = 5f;
+                    airPlaneController.pitchSpeed = 5f;
+                    airPlaneController.rollSpeed = 5f;
                 }
                 else if (Input.GetAxis("Turbo") != 0)
                 {
@@ -59,6 +62,9 @@ namespace HeneGames.Airplane
                     focusCanvas.SetActive(false);
                     float _deltatime = Time.deltaTime * 100f;
                     camera.m_Lens.FieldOfView = Mathf.Lerp(camera.m_Lens.FieldOfView, cameraDefaultFov + 20f, 0.05f * _deltatime);
+                    airPlaneController.yawSpeed =80f;
+                    airPlaneController.pitchSpeed = 20f;
+                    airPlaneController.rollSpeed = 30f;
                 }
                 else
                 {
@@ -69,6 +75,9 @@ namespace HeneGames.Airplane
                     camera.gameObject.SetActive(true);
                     mapcanvas.SetActive(true);
                     focusCanvas.SetActive(false);
+                    airPlaneController.yawSpeed = 80f;
+                    airPlaneController.pitchSpeed = 20f;
+                    airPlaneController.rollSpeed = 30f;
 
                 }
 

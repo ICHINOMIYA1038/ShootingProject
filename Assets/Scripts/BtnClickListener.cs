@@ -15,6 +15,10 @@ public class BtnClickListener : MonoBehaviour
         {
             button.onClick.AddListener(startButtonOnClick);
         }
+        if (button.name.Equals("ExitBtn"))
+        {
+            button.onClick.AddListener(Exit);
+        }
         if (button.name.Equals("Btn_GameOver"))
         {
             button.onClick.AddListener(goTitleBtnClick);
@@ -31,6 +35,14 @@ public class BtnClickListener : MonoBehaviour
     {
         SceneChangeManager.checkFlag(SceneChangeManager.MAIN);
 
+    }
+    public void Exit()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+        #else
+            Application.Quit();//ゲームプレイ終了
+        #endif
     }
 
     public void goTitleBtnClick()
