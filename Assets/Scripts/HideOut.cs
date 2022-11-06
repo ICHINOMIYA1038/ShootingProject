@@ -24,8 +24,11 @@ public class HideOut : Building,iApplicableDamaged
 
     public new void die()
     {
-        manager.sceneChange(gameManager.CLEAR_SCENE);
-        Debug.Log("die");
+        if(manager.getCurrentScene()==gameManager.MAIN_SCENE)
+        {
+            manager.sceneChange(gameManager.CLEAR_SCENE);
+        }
+        
         base.die();
     }
 

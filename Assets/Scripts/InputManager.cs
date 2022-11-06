@@ -5,10 +5,9 @@ using util;
 
 public class InputManager : MonoBehaviour
 {
-   
-    bool canLaunch;
-    float span;
    public PlayerBulletController controller;
+    [SerializeField]
+   gameManager manager;
 
 
     // Start is called before the first frame update
@@ -21,15 +20,18 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(Input.GetAxis("Fire1")!=0)
+        if (manager.getCurrentScene() == gameManager.MAIN_SCENE)
         {
-            controller.launchLeft();
+            if (Input.GetAxis("Fire1") != 0)
+            {
+                controller.launchLeft();
+            }
+            if (Input.GetAxis("Fire2") != 0)
+            {
+                controller.launchRight();
+            }
         }
-        if (Input.GetAxis("Fire2") != 0)
-        {
-            controller.launchRight();
-        }
+       
 
 
     }

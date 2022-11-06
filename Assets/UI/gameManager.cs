@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using HeneGames.Airplane;
 public class gameManager : MonoBehaviour
 {
     [SerializeField]
@@ -29,6 +29,16 @@ public class gameManager : MonoBehaviour
     GameObject gameMainCanvas;
     [SerializeField]
     GameObject gameClearCanvas;
+    [SerializeField]
+    AudioSource gameSE;
+    [SerializeField]
+    AudioSource gameBGM;
+    [SerializeField]
+    AudioClip gameOverSE;
+    [SerializeField]
+    AudioClip gameClearSE;
+    [SerializeField]
+    SimpleAirPlaneController simpleAirPlaneController;
 
     public int currentScene;
     public const int TITLE_SCENE = 0;
@@ -36,9 +46,12 @@ public class gameManager : MonoBehaviour
     public const int CLEAR_SCENE = 2;
     public const int GAMEOVER_SCENE = 3;
 
+
+
     private void Start()
     {
-        currentScene = TITLE_SCENE;
+        currentScene = MAIN_SCENE;
+        
         
     }
     void Awake()
@@ -108,6 +121,9 @@ public class gameManager : MonoBehaviour
             CanvasGroup canvasGroup = gameOverCanvas.GetComponent<CanvasGroup>();
             StartCoroutine("setMouse");
             //Time.timeScale = 0.2f;
+            gameSE.PlayOneShot(gameOverSE);
+            gameBGM.Stop();
+            currentScene = GAMEOVER_SCENE;
 
         }
 
@@ -117,7 +133,9 @@ public class gameManager : MonoBehaviour
             gameMainCanvas.SetActive(false);
             CanvasGroup canvasGroup = gameClearCanvas.GetComponent<CanvasGroup>();
             StartCoroutine("setMouse");
-
+            gameSE.PlayOneShot(gameClearSE);
+            gameBGM.Stop();
+            currentScene = CLEAR_SCENE;
         }
 
         /*
@@ -135,4 +153,8 @@ public class gameManager : MonoBehaviour
         Cursor.visible = true; 
     }
 
+    public int getCurrentScene()
+    {
+        return currentScene;
+    }
 }

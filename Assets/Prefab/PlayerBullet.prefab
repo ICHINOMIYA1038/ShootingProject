@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasLifeTime: 1
-  defaultLifeTime: 3
+  defaultLifeTime: 8
 --- !u!136 &7731866888120363667
 CapsuleCollider:
   m_ObjectHideFlags: 0

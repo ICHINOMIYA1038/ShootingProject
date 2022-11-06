@@ -110,7 +110,7 @@ namespace HeneGames.Airplane
 
             //Get and set rigidbody
             rb = GetComponent<Rigidbody>();
-            //rb.isKinematic = true;
+            rb.isKinematic = true;
             rb.useGravity = false;
             rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
@@ -123,7 +123,7 @@ namespace HeneGames.Airplane
             AudioSystem();
 
             //Airplane move only if not dead
-            if (!planeIsDead)
+            if (!planeIsDead&&manager.getCurrentScene()==gameManager.MAIN_SCENE)
             {
                 Movement();
 
@@ -146,14 +146,7 @@ namespace HeneGames.Airplane
 
             //Crash
             
-            if (planeIsDead == true)
-            {
-                manager.sceneChange(gameManager.GAMEOVER_SCENE);
-                if (transform.position.y < 500)
-                {
-                   // manager.sceneChange(gameManager.GAMEOVER_SCENE);
-                }
-            }
+
             
         }
 
@@ -344,7 +337,11 @@ namespace HeneGames.Airplane
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.name.Equals("Map1"))
+            if (collision.gameObject.name.Equals("Map1")&&planeIsDead==false)
+            {
+                die();
+            }
+            if (collision.gameObject.tag.Equals("Wall") && planeIsDead == false)
             {
                 die();
             }
@@ -400,6 +397,11 @@ namespace HeneGames.Airplane
         public void die()
         {
             Crash();
+            if(manager.getCurrentScene()==gameManager.MAIN_SCENE)
+            {
+                manager.sceneChange(gameManager.GAMEOVER_SCENE);
+            }
+           
         }
 
         public void checkAlive()
