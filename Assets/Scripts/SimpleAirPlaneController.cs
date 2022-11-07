@@ -95,6 +95,8 @@ namespace HeneGames.Airplane
         [Header("Colliders")]
         [SerializeField] private Transform crashCollidersRoot;
 
+        public bool isMovie = true;
+
         private void Start()
         {
             gamemanager = GameObject.Find("GameManager");
@@ -123,8 +125,14 @@ namespace HeneGames.Airplane
             //Airplane move only if not dead
             if (!planeIsDead&&manager.getCurrentScene()==gameManager.MAIN_SCENE)
             {
-                Movement();
-
+                if (isMovie == true)
+                {
+                    transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    Movement();
+                }
             }
 
 
@@ -312,6 +320,7 @@ namespace HeneGames.Airplane
         {
             
         }
+
 
         #endregion
     }
