@@ -39,9 +39,9 @@ public class BtnClickListener : MonoBehaviour
     public void Exit()
     {
         #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+        UnityEditor.EditorApplication.isPlaying = false;
         #else
-            Application.Quit();//ゲームプレイ終了
+            Application.Quit();
         #endif
     }
 

@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8bf32e518a64a228d35f5f0063a316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 2
+  maxHP: 1
   explosionEffect: {fileID: 5743386076975957959, guid: 586d2a9fe1a3f4e39ad082d1784cd43e, type: 3}
 --- !u!54 &2024884018880758653
 Rigidbody:
