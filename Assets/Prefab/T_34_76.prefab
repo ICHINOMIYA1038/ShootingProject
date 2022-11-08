@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 5527426864482243812}
   m_Layer: 0
   m_Name: T_34_76
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 2563901939083250123}
   m_LocalRotation: {x: 0.000000021855694, y: -0.00000004371139, z: 1.0165751e-15, w: 1}
   m_LocalPosition: {x: 1050.1266, y: 190.19716, z: 3369.124}
-  m_LocalScale: {x: 4.5, y: 4.5, z: 4.5}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1544785389576731300}

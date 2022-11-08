@@ -135,8 +135,8 @@ MonoBehaviour:
   launchOrigin: {fileID: 3366771673539813441}
   speed: 0
   spanRange:
-  - 2
-  - 5
+  - 3
+  - 10
   numRange: 0100000001000000
 --- !u!1 &3366771673810821746
 GameObject:
@@ -148,9 +148,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3366771673810402898}
   - component: {fileID: 7651223791726783572}
-  - component: {fileID: 5490999285150049942}
   - component: {fileID: 7716151867297327406}
   - component: {fileID: 7511811203097169232}
+  - component: {fileID: 7892617033581562190}
   m_Layer: 0
   m_Name: EnemyWithBuilding
   m_TagString: machinegun
@@ -191,20 +191,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 47.42, y: 74.4, z: 79.17}
   m_Center: {x: 0, y: -19.1, z: 0}
---- !u!114 &5490999285150049942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3366771673810821746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cb0450fb20e846f0b7d2c4646035d46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 1
-  explosionEffect: {fileID: 5743386076975957959, guid: 586d2a9fe1a3f4e39ad082d1784cd43e, type: 3}
 --- !u!82 &7716151867297327406
 AudioSource:
   m_ObjectHideFlags: 0
@@ -317,6 +303,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7892617033581562190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366771673810821746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f610774d095ba411ca9aef66ce11d964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMoveForward: 0
+  maxHP: 1
+  speed: 1
+  explosionEffect: {fileID: 5743386076975957959, guid: 586d2a9fe1a3f4e39ad082d1784cd43e, type: 3}
+  person: {fileID: 3140536388014876239}
+  detectRange: 600
 --- !u!1 &3366771673810821748
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +559,11 @@ PrefabInstance:
 --- !u!4 &2368538915538795765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3751638534269992323, guid: 2bbdae75d2e3245b69a5ebc1c66c4e05, type: 3}
+  m_PrefabInstance: {fileID: 1499349883930575222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3140536388014876239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4565436101898282809, guid: 2bbdae75d2e3245b69a5ebc1c66c4e05, type: 3}
   m_PrefabInstance: {fileID: 1499349883930575222}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3366771673366209276

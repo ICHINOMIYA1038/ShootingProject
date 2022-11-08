@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using util;
 
-public class EnemyWithAntiGun : Enemy ,iApplicableDamaged , canExplode
+public class EnemyWithBuilding : Enemy, iApplicableDamaged, canExplode
 {
     Animator animator;
     GameObject target;
@@ -11,7 +11,7 @@ public class EnemyWithAntiGun : Enemy ,iApplicableDamaged , canExplode
     GameObject person;
     [SerializeField]
     private int detectRange;
-    toPlayer toplayerScript; 
+    toPlayer toplayerScript;
     // Start is called before the first frame update
     new void Start()
     {
@@ -49,6 +49,6 @@ public class EnemyWithAntiGun : Enemy ,iApplicableDamaged , canExplode
             animator.SetTrigger("not detect");
             toplayerScript.setIsDetecting(false);
         }
-        
+
     }
 }
