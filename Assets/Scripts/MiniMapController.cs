@@ -15,7 +15,7 @@ public class MiniMapController : MonoBehaviour
         
         Vector3 position = new Vector3(0f,0f,0f);
         position.x = target.transform.position.x;
-        position.z = target.transform.position.z;
+        position.z = target.transform.position.z-100f;
         position.y = targetCamera.transform.position.y;
         targetCamera.transform.position = position;
 
@@ -26,7 +26,7 @@ public class MiniMapController : MonoBehaviour
     {
         Vector3 position = new Vector3(0f, 0f, 0f);
         position.x = target.transform.position.x;
-        position.z = target.transform.position.z;
+        position.z = target.transform.position.z - 100f;
         position.y = targetCamera.transform.position.y;
         targetCamera.transform.position = position;
     }

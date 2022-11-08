@@ -167,7 +167,8 @@ namespace HeneGames.Airplane
             //Rotate airplane by inputs
             transform.Rotate(Vector3.forward * -Input.GetAxis("Horizontal") * currentRollSpeed * Time.deltaTime);
             transform.Rotate(Vector3.right * Input.GetAxis("Vertical") * currentPitchSpeed * Time.deltaTime);
-
+            transform.Rotate(Vector3.up * Input.GetAxis("anotherHorizontal") * currentYawSpeed * Time.deltaTime);
+            /*
             //Rotate yaw
             if (Input.GetKey(KeyCode.E))
             {
@@ -177,6 +178,7 @@ namespace HeneGames.Airplane
             {
                 transform.Rotate(-Vector3.up * currentYawSpeed * Time.deltaTime);
             }
+            */
 
             //Accelerate and deacclerate
             if (currentSpeed < maxSpeed)

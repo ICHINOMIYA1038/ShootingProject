@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class BtnClickListener : MonoBehaviour
 {
+    [SerializeField]
+    gameManager manager;
     Button button;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,14 @@ public class BtnClickListener : MonoBehaviour
         if (button.name.Equals("Btn_GameClear"))
         {
             button.onClick.AddListener(goTitleBtnClick);
+        }
+        if (button.name.Equals("ExitBtn"))
+        {
+            button.onClick.AddListener(Exit);
+        }
+        if (button.name.Equals("returnBtn"))
+        {
+            button.onClick.AddListener(returnBattleBtn);
         }
 
 
@@ -50,6 +60,12 @@ public class BtnClickListener : MonoBehaviour
         SceneChangeManager.checkFlag(SceneChangeManager.TITLE);
 
     }
+
+    public void returnBattleBtn()
+    {
+        manager.ReturnFromConfig();
+    }
+
     // Update is called once per frame
     void Update()
     {

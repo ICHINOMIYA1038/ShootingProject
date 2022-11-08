@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (manager.getCurrentScene() == gameManager.MAIN_SCENE)
+        if (manager.getCurrentScene() == gameManager.MAIN_SCENE&&manager.isConfig==false&&manager.isMovieNow==false)
         {
             if (Input.GetAxis("Fire1") != 0)
             {

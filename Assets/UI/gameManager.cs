@@ -92,11 +92,11 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Alpha0) && isConfig == false)
+        if (Input.GetKeyUp(KeyCode.Escape) && isConfig == false)
         {
             GoConfigPanel();
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha0) && isConfig == true)
+        else if (Input.GetKeyUp(KeyCode.Escape) && isConfig == true)
         {
             ReturnFromConfig();
         }
@@ -188,19 +188,19 @@ public class gameManager : MonoBehaviour
 
     public void GoConfigPanel()
     {
-        Debug.Log("go");
         Time.timeScale = 0f;
         gameMainCanvas.SetActive(false);
         focusCanvas.SetActive(false);
         configCanvas.SetActive(true);
         isConfig = true;
         gameBGM.Stop();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
 
     }
 
     public void ReturnFromConfig()
     {
-        Debug.Log("return");
         if (simpleAirPlaneController.isMovie == false)
         {
             gameMainCanvas.SetActive(true);
@@ -209,6 +209,8 @@ public class gameManager : MonoBehaviour
         configCanvas.SetActive(false);
         isConfig = false;
         gameBGM.Play();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
     }
 

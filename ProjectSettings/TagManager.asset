@@ -7,14 +7,15 @@ TagManager:
   - machinegun
   - anti-air-gun
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - wall
   - Water
   - UI
-  - 
+  - MiniMap
   - 
   - 
   - 
