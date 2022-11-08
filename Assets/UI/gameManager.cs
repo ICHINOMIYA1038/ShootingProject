@@ -45,7 +45,8 @@ public class gameManager : MonoBehaviour
     SimpleAirPlaneController simpleAirPlaneController;
     [SerializeField]
     float movieTime = 15f;
-    bool isConfig = false;
+    public bool isMovieNow = false;
+    public bool isConfig = false;
 
     public int currentScene;
     public const int TITLE_SCENE = 0;
@@ -60,10 +61,11 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        currentScene = MAIN_SCENE;
-        StartCoroutine("MovieStart");
         configCanvas.SetActive(false);
         isConfig = false;
+        currentScene = MAIN_SCENE;
+        StartCoroutine("MovieStart");
+        ;
 
     }
     void Awake()
@@ -218,11 +220,14 @@ public class gameManager : MonoBehaviour
         ManagerCamera.SetActive(true);
         simpleAirPlaneController.isMovie = true;
         gameBGM.Play();
+        isMovieNow = true;
         yield return new WaitForSeconds(movieTime);
         gameMainCanvas.SetActive(true);
         ManagerCamera.SetActive(false);
         mainCamera.SetActive(true);
         simpleAirPlaneController.isMovie = false;
+        configCanvas.SetActive(false);
+        isMovieNow = false;
 
     }
 
