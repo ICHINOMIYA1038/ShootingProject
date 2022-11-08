@@ -95,13 +95,14 @@ namespace HeneGames.Airplane
         [Header("Colliders")]
         [SerializeField] private Transform crashCollidersRoot;
 
+        public bool isMovie = true;
+
         private void Start()
         {
             gamemanager = GameObject.Find("GameManager");
             manager = gamemanager.GetComponent<gameManager>();
             this.HP = manager.HP;
             this.moral = manager.moral;
-
 
             //Setup speeds
             maxSpeed = defaultSpeed;
@@ -123,8 +124,14 @@ namespace HeneGames.Airplane
             //Airplane move only if not dead
             if (!planeIsDead&&manager.getCurrentScene()==gameManager.MAIN_SCENE)
             {
-                Movement();
-
+                if (isMovie == true)
+                {
+                    transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    Movement();
+                }
             }
 
 
@@ -249,6 +256,18 @@ namespace HeneGames.Airplane
             {
                 die();
             }
+            if (collision.gameObject.tag.Equals("anti-air-gun") && planeIsDead == false)
+            {
+                die();
+            }
+            if (collision.gameObject.tag.Equals("machinegun") && planeIsDead == false)
+            {
+                die();
+            }
+            if (collision.gameObject.tag.Equals("Enemy") && planeIsDead == false)
+            {
+                die();
+            }
             impuctAudioSource.PlayOneShot(impuctSoundClip);
 
 
@@ -312,6 +331,7 @@ namespace HeneGames.Airplane
         {
             
         }
+
 
         #endregion
     }

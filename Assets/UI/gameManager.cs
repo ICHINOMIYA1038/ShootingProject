@@ -30,6 +30,10 @@ public class gameManager : MonoBehaviour
     [SerializeField]
     GameObject gameClearCanvas;
     [SerializeField]
+    GameObject focusCanvas;
+    [SerializeField]
+    GameObject configCanvas;
+    [SerializeField]
     AudioSource gameSE;
     [SerializeField]
     AudioSource gameBGM;
@@ -39,6 +43,9 @@ public class gameManager : MonoBehaviour
     AudioClip gameClearSE;
     [SerializeField]
     SimpleAirPlaneController simpleAirPlaneController;
+    [SerializeField]
+    float movieTime = 15f;
+    bool isConfig = false;
 
     public int currentScene;
     public const int TITLE_SCENE = 0;
@@ -46,13 +53,18 @@ public class gameManager : MonoBehaviour
     public const int CLEAR_SCENE = 2;
     public const int GAMEOVER_SCENE = 3;
 
-
+    [SerializeField]
+    GameObject mainCamera;
+    [SerializeField]
+    GameObject ManagerCamera;
 
     private void Start()
     {
         currentScene = MAIN_SCENE;
-        
-        
+        StartCoroutine("MovieStart");
+        configCanvas.SetActive(false);
+        isConfig = false;
+
     }
     void Awake()
     {
@@ -77,6 +89,18 @@ public class gameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Alpha0) && isConfig == false)
+        {
+            GoConfigPanel();
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha0) && isConfig == true)
+        {
+            ReturnFromConfig();
+        }
+    }
+
+    private void FixedUpdate()
     {
         
     }
@@ -118,6 +142,7 @@ public class gameManager : MonoBehaviour
         {
             gameOverCanvas.SetActive(true);
             gameMainCanvas.SetActive(false);
+            focusCanvas.SetActive(false);
             CanvasGroup canvasGroup = gameOverCanvas.GetComponent<CanvasGroup>();
             StartCoroutine("setMouse");
             //Time.timeScale = 0.2f;
@@ -131,6 +156,7 @@ public class gameManager : MonoBehaviour
         {
             gameClearCanvas.SetActive(true);
             gameMainCanvas.SetActive(false);
+            focusCanvas.SetActive(false);
             CanvasGroup canvasGroup = gameClearCanvas.GetComponent<CanvasGroup>();
             StartCoroutine("setMouse");
             gameSE.PlayOneShot(gameClearSE);
@@ -157,4 +183,47 @@ public class gameManager : MonoBehaviour
     {
         return currentScene;
     }
+
+    public void GoConfigPanel()
+    {
+        Debug.Log("go");
+        Time.timeScale = 0f;
+        gameMainCanvas.SetActive(false);
+        focusCanvas.SetActive(false);
+        configCanvas.SetActive(true);
+        isConfig = true;
+        gameBGM.Stop();
+
+    }
+
+    public void ReturnFromConfig()
+    {
+        Debug.Log("return");
+        if (simpleAirPlaneController.isMovie == false)
+        {
+            gameMainCanvas.SetActive(true);
+        }
+            Time.timeScale = 1f;
+        configCanvas.SetActive(false);
+        isConfig = false;
+        gameBGM.Play();
+
+    }
+
+    IEnumerator MovieStart()
+    {
+        gameMainCanvas.SetActive(false);
+        focusCanvas.SetActive(false);
+        mainCamera.SetActive(false);
+        ManagerCamera.SetActive(true);
+        simpleAirPlaneController.isMovie = true;
+        gameBGM.Play();
+        yield return new WaitForSeconds(movieTime);
+        gameMainCanvas.SetActive(true);
+        ManagerCamera.SetActive(false);
+        mainCamera.SetActive(true);
+        simpleAirPlaneController.isMovie = false;
+
+    }
+
 }

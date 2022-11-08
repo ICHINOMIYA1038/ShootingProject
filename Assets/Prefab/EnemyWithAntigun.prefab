@@ -104,9 +104,9 @@ MonoBehaviour:
   launchOrigin: {fileID: 4484183888358521094}
   speed: 0
   spanRange:
-  - 0
-  - 0
-  numRange: 0000000000000000
+  - 3
+  - 10
+  numRange: 0100000001000000
 --- !u!1 &1158650546722575668
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,10 +368,10 @@ GameObject:
   - component: {fileID: 1244739811451616734}
   - component: {fileID: 1158167367831274474}
   - component: {fileID: 1158167367831274485}
-  - component: {fileID: -5728901600494848353}
   - component: {fileID: 4738928760942490494}
+  - component: {fileID: 8067084957854299340}
   m_Layer: 0
-  m_Name: EnemyWithPerson (1)
+  m_Name: EnemyWithAntigun
   m_TagString: anti-air-gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,7 +386,7 @@ Transform:
   m_GameObject: {fileID: 1159552878151647246}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 238.4, y: 895.7, z: 448.84}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1153568728671080236}
@@ -444,20 +444,6 @@ CapsuleCollider:
   m_Height: 2.09
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5728901600494848353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159552878151647246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cb0450fb20e846f0b7d2c4646035d46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 1
-  explosionEffect: {fileID: 5743386076975957959, guid: 586d2a9fe1a3f4e39ad082d1784cd43e, type: 3}
 --- !u!54 &4738928760942490494
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -474,6 +460,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8067084957854299340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159552878151647246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990cf223471b0436883a66c4e117611e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMoveForward: 0
+  maxHP: 1
+  speed: 1
+  explosionEffect: {fileID: 5743386076975957959, guid: 586d2a9fe1a3f4e39ad082d1784cd43e, type: 3}
+  person: {fileID: 2077226797349311303}
+  detectRange: 600
 --- !u!1 &6973560742734699553
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,10 +576,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyPerson
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3718502299517846935, guid: 2bbdae75d2e3245b69a5ebc1c66c4e05, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2bbdae75d2e3245b69a5ebc1c66c4e05, type: 3}
 --- !u!4 &1700137896119224829 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3751638534269992323, guid: 2bbdae75d2e3245b69a5ebc1c66c4e05, type: 3}
+  m_PrefabInstance: {fileID: 2560407671157666942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2077226797349311303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4565436101898282809, guid: 2bbdae75d2e3245b69a5ebc1c66c4e05, type: 3}
   m_PrefabInstance: {fileID: 2560407671157666942}
   m_PrefabAsset: {fileID: 0}
