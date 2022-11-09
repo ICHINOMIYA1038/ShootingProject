@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using util;
 
-public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
+//敵キャラクターの派生元クラス
+//ダメージを受けることを保証するインターフェースを実装
+public class Enemy : MonoBehaviour, iApplicableDamaged
 {
-    bool isAlive = true;
+    //canMoveForwardがtrueの時、自動で前にすすむ。
+    [Header("プロパティ設定")]
     [SerializeField]
     bool canMoveForward=false;
+    [SerializeField]
+    float speed = 1.0f;
     [SerializeField]
     protected int maxHP;
     protected int HP;
     [SerializeField]
-    float speed = 1.0f;
-    [SerializeField]
     GameObject explosionEffect;
 
-
-
-    // Start is called before the first frame update
     protected void Start()
     {
         HP = maxHP;
         
     }
 
-    // Update is called once per frame
     protected void Update()
     {
         moveForward();
     }
 
+    //canMoveForwardがtrueの時、自動で前にすすむ。
     void moveForward()
     {
         if(canMoveForward==true)
@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
         }
     }
 
+    //ダメージ処理
     public void damaged(int amount)
     {
         HP -= amount;
@@ -49,6 +50,7 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
 
     }
 
+    //死ぬ時の処理
     public void die()
     {
         
@@ -56,18 +58,4 @@ public class Enemy : MonoBehaviour, iApplicableDamaged, canExplode
         Destroy(gameObject);
     }
 
-    public void checkAlive()
-    {
-        
-    }
-
-    void canExplode.playEffect()
-    {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-       
-    }
 }

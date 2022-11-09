@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 炎のエフェクトクラス
+/// </summary>
 public class FireParticle : MonoBehaviour
 {
     GameObject[] effect;

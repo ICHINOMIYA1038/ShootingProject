@@ -4,25 +4,36 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using HeneGames.Airplane;
-public class gameManager : MonoBehaviour
+
+//ゲーム全体を管理する
+//UIの表示・非表示
+//ゲームの画面変化
+//画面遷移に伴う音声
+//プレイヤーのHPの管理
+public class GameManager : MonoBehaviour
 {
+    //private int Score { get; set;} 
+    public int currentScene { get; set; }
+    public const int TITLE_SCENE = 0;
+    public const int MAIN_SCENE = 1;
+    public const int CLEAR_SCENE = 2;
+    public const int GAMEOVER_SCENE = 3;
+
+    //各種設定
+    float movieTime = 15f; //冒頭ムービーの長さ
+    public bool isMovieNow { get; set; } = false; //現在がムービーかどうかの判定
+    public bool isConfig { get; set; } = false; //メニューを開いているかどうかの判定
+
+    [Header("プレイヤーの初期設定")]
     [SerializeField]
     private int maxHP;
-    [SerializeField]
-    private int maxMoral;
     public int HP { get; set; }
-    public int moral { get; set; }
-    TextMeshProUGUI hpText;
-    TextMeshProUGUI moralText;
+
+    [Space(10)]
+    [Header("各種UI")]
     [SerializeField]
     GameObject hpGauge;
-    [SerializeField]
-    GameObject moralGauge;
-    [SerializeField]
     RectTransform hpGaugeTransform;
-    [SerializeField]
-    RectTransform moralGaugeTransform;
     [SerializeField]
     GameObject gameOverCanvas;
     [SerializeField]
@@ -33,6 +44,9 @@ public class gameManager : MonoBehaviour
     GameObject focusCanvas;
     [SerializeField]
     GameObject configCanvas;
+
+    [Space(10)]
+    [Header("音声")]
     [SerializeField]
     AudioSource gameSE;
     [SerializeField]
@@ -41,19 +55,14 @@ public class gameManager : MonoBehaviour
     AudioClip gameOverSE;
     [SerializeField]
     AudioClip gameClearSE;
-    [SerializeField]
-    SimpleAirPlaneController simpleAirPlaneController;
-    [SerializeField]
-    float movieTime = 15f;
-    public bool isMovieNow = false;
-    public bool isConfig = false;
 
-    public int currentScene;
-    public const int TITLE_SCENE = 0;
-    public const int MAIN_SCENE = 1;
-    public const int CLEAR_SCENE = 2;
-    public const int GAMEOVER_SCENE = 3;
+    [Space(10)]
+    [Header("キャラクターコントローラー")]
+    [SerializeField]
+    PlayerHeliController playerHeliController;
 
+    [Space(10)]
+    [Header("カメラ")]
     [SerializeField]
     GameObject mainCamera;
     [SerializeField]
@@ -61,35 +70,32 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        configCanvas.SetActive(false);
+        
         isConfig = false;
         currentScene = MAIN_SCENE;
         StartCoroutine("MovieStart");
-        ;
 
     }
+
+    //他のスクリプトよりも早く実行させるためにAwakeを使用している。
+    //もし他に、Awakeを使用する場合で、実行順序を指定したい時には、
+    //PlayerSetting → [Script Execution Order] からスクリプトの実行順序を制御する。
+
     void Awake()
     {
         HP = maxHP;
-        moral = maxMoral;
+        configCanvas.SetActive(false);
         gameOverCanvas.SetActive(false);
         gameClearCanvas.SetActive(false);
         gameMainCanvas.SetActive(true);
-        hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
-        //moralText = GameObject.Find("moralText").GetComponent<TextMeshProUGUI>();
 
         hpGauge = GameObject.Find("hpGauge");
-        //moralGauge = GameObject.Find("moralGauge");
-
         hpGaugeTransform = hpGauge.GetComponent<RectTransform>();
-        //moralGaugeTransform = moralGauge.GetComponent<RectTransform>();
-
         changePanelSize(ref hpGaugeTransform, 200f);
-        //changePanelSize(ref moralGaugeTransform, 200f);
 
     }
 
-    // Update is called once per frame
+    // Config画面への遷移
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape) && isConfig == false)
@@ -102,11 +108,8 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
+    //プレイヤーのスクリプトから呼び出す。
+    //HPを同期させる
     public void updateParam(string category, int damage)
     {
         if (category.Equals("HP"))
@@ -114,15 +117,11 @@ public class gameManager : MonoBehaviour
             HP -= damage;
             float size = (float)HP / maxHP * 200f;
             changePanelSize(ref hpGaugeTransform, size);
-        }
-        if (category.Equals("Moral"))
-        {
-            moral -= damage;
-            float size = (float)moral / maxMoral * 200f;
-            changePanelSize(ref moralGaugeTransform, size);
-        }
+        } 
     }
 
+    //UIのサイズを変更する時に用いる。
+    //HPゲージのrectTransformとx方向のsizeを引数にとる。
     void changePanelSize(ref RectTransform rectTransform,float size)
     {
         Vector2 rectSize = rectTransform.sizeDelta;
@@ -130,14 +129,16 @@ public class gameManager : MonoBehaviour
         rectTransform.sizeDelta = rectSize;
     }
 
+    //引数に応じて画面遷移
+    //ゲームオーバーとゲームクリア時には、キャンバスの入れ替えと効果音、マウスの有効・無効を設定する。
     public void sceneChange(int flag)
     {
-        if(flag==0){
-            SceneManager.LoadScene("Title", LoadSceneMode.Additive);
+        if(flag==TITLE_SCENE){
+            SceneManager.LoadScene("Title", LoadSceneMode.Single);
         }
-        if(flag==1)
+        if(flag==MAIN_SCENE)
         {
-            SceneManager.LoadScene("main", LoadSceneMode.Additive);
+            SceneManager.LoadScene("main", LoadSceneMode.Single);
         }
         
         if (flag == GAMEOVER_SCENE)
@@ -166,26 +167,24 @@ public class gameManager : MonoBehaviour
             currentScene = CLEAR_SCENE;
         }
 
-        /*
-        if (SceneManager.GetActiveScene().name.Equals("01"))
-        {
-            SceneManager.LoadScene("02", LoadSceneMode.Additive);
-        }
-        */
     }
 
+    //ゲームオーバーとゲームクリア時に遅れてマウスボタンが有効になるように設定する。
     IEnumerator setMouse()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true; 
     }
 
+
+    //現在のシーンIndexを返す
     public int getCurrentScene()
     {
         return currentScene;
     }
 
+    //設定画面を開く
     public void GoConfigPanel()
     {
         Time.timeScale = 0f;
@@ -193,41 +192,43 @@ public class gameManager : MonoBehaviour
         focusCanvas.SetActive(false);
         configCanvas.SetActive(true);
         isConfig = true;
-        gameBGM.Stop();
+        //gameBGM.Stop();
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
     }
 
+    //設定画面からメイン画面に戻る
     public void ReturnFromConfig()
     {
-        if (simpleAirPlaneController.isMovie == false)
+        if (playerHeliController.isMovie == false)
         {
             gameMainCanvas.SetActive(true);
         }
             Time.timeScale = 1f;
         configCanvas.SetActive(false);
         isConfig = false;
-        gameBGM.Play();
+        //gameBGM.Play();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
     }
 
+    //映像を再生時の処理
     IEnumerator MovieStart()
     {
         gameMainCanvas.SetActive(false);
         focusCanvas.SetActive(false);
         mainCamera.SetActive(false);
         ManagerCamera.SetActive(true);
-        simpleAirPlaneController.isMovie = true;
+        playerHeliController.isMovie = true;
         gameBGM.Play();
         isMovieNow = true;
         yield return new WaitForSeconds(movieTime);
         gameMainCanvas.SetActive(true);
         ManagerCamera.SetActive(false);
         mainCamera.SetActive(true);
-        simpleAirPlaneController.isMovie = false;
+        playerHeliController.isMovie = false;
         configCanvas.SetActive(false);
         isMovieNow = false;
 

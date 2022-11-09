@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// ボタンを押した時の処理
+/// </summary>
 public class BtnClickListener : MonoBehaviour
 {
     [SerializeField]
-    gameManager manager;
+    GameManager manager;
     Button button;
-    // Start is called before the first frame update
+
+    // ボタンの名前に応じてイベントリスナーを追加
     void Start()
     {
         button = GetComponent<Button>();
@@ -37,15 +43,16 @@ public class BtnClickListener : MonoBehaviour
         {
             button.onClick.AddListener(returnBattleBtn);
         }
-
-
     }
 
+    //タイトルからメイン画面に遷移
     public void startButtonOnClick()
     {
-        SceneChangeManager.checkFlag(SceneChangeManager.MAIN);
+        SceneManager.LoadScene("main", LoadSceneMode.Single);
 
     }
+
+    //ゲームを終了
     public void Exit()
     {
         #if UNITY_EDITOR
@@ -55,12 +62,14 @@ public class BtnClickListener : MonoBehaviour
         #endif
     }
 
+    //タイトルへ戻るボタンを押した時の処理
     public void goTitleBtnClick()
     {
-        SceneChangeManager.checkFlag(SceneChangeManager.TITLE);
+        manager.sceneChange(GameManager.TITLE_SCENE);
 
     }
 
+    //Config画面からMain画面に戻るときの処理
     public void returnBattleBtn()
     {
         manager.ReturnFromConfig();

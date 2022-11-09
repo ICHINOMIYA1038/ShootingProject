@@ -4,17 +4,31 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 
+/// <summary>
+///????????????????????
+///csv??1???????
+///auto?true???????????????
+/// </summary>
 public class MovieTextController : MonoBehaviour
 {
     TextMeshProUGUI movieText;
     [SerializeField]
     string[] textArray;
     TextAsset csvFile;
+    /// <summary>
+    ///??????????
+    /// </summary>
     int textMaxIndex = 0;
+    /// <summary>
+    ///????????index
+    /// </summary>
     int textNow = 0;
     [SerializeField]
     bool auto;
     float time;
+    /// <summary>
+    ///???????????????
+    /// </summary>
     [SerializeField]
     float changeTime;
 
@@ -22,16 +36,15 @@ public class MovieTextController : MonoBehaviour
     void Start()
     {
         movieText = GetComponent<TextMeshProUGUI>();
-        csvFile = Resources.Load("dialog") as TextAsset; // Resouces下のCSV読み込み
+        csvFile = Resources.Load("dialog") as TextAsset; // Resouces??CSV?????
         StringReader reader = new StringReader(csvFile.text);
+        //????10????????????????????
         textArray = new string[10];
-        // , で分割しつつ一行ずつ読み込み
-        // リストに追加していく
         int i = 0;
-        while (reader.Peek() != -1) // reader.Peaekが-1になるまで
+        while (reader.Peek() != -1) 
         {
-            string line = reader.ReadLine(); // 一行ずつ読み込み
-            textArray[i] = line; // , 区切りでリストに追加
+            string line = reader.ReadLine(); // 1??????
+            textArray[i] = line; // ??????????
             i += 1;
         }
         textMaxIndex = i;
@@ -42,6 +55,7 @@ public class MovieTextController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //?????true??????????
         if(auto==true)
         {
             time += Time.deltaTime;
@@ -53,6 +67,12 @@ public class MovieTextController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ???????????
+    /// </summary>
+    /// <returns>
+    /// ????????????false???
+    /// </returns>
     public bool NextText()
     {
         if(textNow<textMaxIndex)

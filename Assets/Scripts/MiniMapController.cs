@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// miniMapを作るためのコントローラー
+/// カメラの移動を制御する
+/// 
+/// </summary>
 public class MiniMapController : MonoBehaviour
 {
-    [SerializeField]
-    GameObject target;
+    //追跡対象のオブジェクト(ここではプレイヤーに設定)
+    [SerializeField] GameObject target;
+    //上空から撮影するカメラ
     GameObject targetCamera;
     
     // Start is called before the first frame update

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using util;
 
+
+/// <summary>
+/// 建物のクラス
+/// </summary>
 public class Building : MonoBehaviour ,iApplicableDamaged
 {
    

@@ -5,25 +5,28 @@ using UnityEngine;
 
 namespace util
 {
+    //ダメージを受ける処理のインターフェース
     public interface iApplicableDamaged
     { 
         void damaged(int amount);
         void die();
-        void checkAlive();
     }
 
+    //ダメージを与えることを保証するインターフェース
     public interface iCanDamage
     {
         void damage(int damageAmount, iApplicableDamaged target);
 
     }
 
+    //爆発のためのインターフェース
     public interface canExplode
     {
         void playEffect();
 
     }
 
+    //弾を発射するためのインターフェース
     public abstract class LaunchBulletController : MonoBehaviour
     {
         

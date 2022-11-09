@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// ミサイルクラス、敵味方共通の抽象クラス
+/// </summary>
 abstract public class Bullet : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +15,6 @@ abstract public class Bullet : MonoBehaviour
     float defaultLifeTime;
     bool canMoveForward = true;
     float speed = 8;
-    void checkLifeTime() { }
     // Start is called before the first frame update
     protected void Start()
     {

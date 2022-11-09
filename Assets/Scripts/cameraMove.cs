@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+///カメラを動かす処理
+///実際にはアニメーションを再生しているだけ
 public class cameraMove : MonoBehaviour
 {
-    Animation animation;
+    Animation animation1;
     CinemachineVirtualCamera vmabove;
     [SerializeField]
     float waitTime;
@@ -13,7 +15,7 @@ public class cameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animation = this.GetComponent<Animation>();
+        animation1 = this.GetComponent<Animation>();
         vmabove = this.GetComponent<CinemachineVirtualCamera>();
         StartCoroutine("animate");
     }
@@ -27,6 +29,6 @@ public class cameraMove : MonoBehaviour
     IEnumerator animate()
     {
         yield return new WaitForSeconds(waitTime);
-        animation.Play();
+        animation1.Play();
     }
 }

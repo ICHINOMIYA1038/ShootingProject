@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using util;
 
-public class EnemyWithBuilding : Enemy, iApplicableDamaged, canExplode
+//建物から攻撃してくる敵のスクリプト
+public class EnemyWithBuilding : Enemy, iApplicableDamaged
 {
-    Animator animator;
-    GameObject target;
+    private Animator animator;
+    private GameObject target;
+    [Header("キャラクター")]
     [SerializeField]
     GameObject person;
+    [Header("探知範囲")]
     [SerializeField]
     private int detectRange;
-    toPlayer toplayerScript;
+    private LaunchToPlayer toplayerScript;
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
         animator = person.GetComponent<Animator>();
         target = GameObject.FindWithTag("Player");
-        toplayerScript = GetComponentInChildren<toPlayer>();
+        toplayerScript = GetComponentInChildren<LaunchToPlayer>();
 
     }
 
@@ -29,13 +32,15 @@ public class EnemyWithBuilding : Enemy, iApplicableDamaged, canExplode
         detect();
     }
 
+    //プレイヤーを検知するスクリプト
+    //detectRange以内にプレイヤーがいる時に処理をする。
+    //検知した場合、プレイヤーの方を向き、アニメーションを再生する。
     void detect()
     {
 
         Vector3 targetVector = target.transform.position - transform.position;
         if (targetVector.magnitude < detectRange)
         {
-            //Debug.Log("detect");
             person.transform.LookAt(target.transform);
             Vector3 ang = person.transform.localEulerAngles;
             ang.z = 0;
@@ -46,6 +51,7 @@ public class EnemyWithBuilding : Enemy, iApplicableDamaged, canExplode
         }
         else
         {
+            //検知指定ない場合のアニメーションを設定する。
             animator.SetTrigger("not detect");
             toplayerScript.setIsDetecting(false);
         }
