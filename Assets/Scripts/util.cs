@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// 共通して利用できるクラスはこちらに作成する
+/// </summary>
 namespace util
 {
     //ダメージを受ける処理のインターフェース

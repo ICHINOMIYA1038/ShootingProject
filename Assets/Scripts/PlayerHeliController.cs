@@ -34,6 +34,10 @@ public class PlayerHeliController : MonoBehaviour, iApplicableDamaged
     public float pitchSpeed{ get; set; } = 50f;
     public float rollSpeed{ get; set; } = 50f;
 
+    [Space(10)]
+    [Header("角度制限")]
+    [SerializeField]
+    bool rotationRestrict = true;
     [SerializeField]
     float rotationRangeX = 40f;
     [SerializeField]
@@ -115,21 +119,32 @@ public class PlayerHeliController : MonoBehaviour, iApplicableDamaged
 
         //回転の処理
 
-        transform.Rotate(Vector3.forward * -Input.GetAxis("Horizontal") * rollSpeed * Time.deltaTime);
-        if (!checkCanRotate())
+        if(rotationRestrict)
         {
-            transform.Rotate(Vector3.forward * Input.GetAxis("Horizontal") * rollSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.forward * -Input.GetAxis("Horizontal") * rollSpeed * Time.deltaTime);
+            if (!checkCanRotate())
+            {
+                transform.Rotate(Vector3.forward * Input.GetAxis("Horizontal") * rollSpeed * Time.deltaTime);
+            }
+                transform.Rotate(Vector3.right * Input.GetAxis("Vertical") * pitchSpeed * Time.deltaTime);
+            if (!checkCanRotate())
+            {
+                transform.Rotate(Vector3.right * -Input.GetAxis("Vertical") * pitchSpeed * Time.deltaTime);
+            }
+            transform.Rotate(Vector3.up * Input.GetAxis("anotherHorizontal") * yawSpeed * Time.deltaTime);
+            if (!checkCanRotate())
+            {
+                transform.Rotate(Vector3.up * Input.GetAxis("anotherHorizontal") * yawSpeed * Time.deltaTime);
+            }
         }
+        else
+        {
+            transform.Rotate(Vector3.forward * -Input.GetAxis("Horizontal") * rollSpeed * Time.deltaTime);
             transform.Rotate(Vector3.right * Input.GetAxis("Vertical") * pitchSpeed * Time.deltaTime);
-        if (!checkCanRotate())
-        {
-            transform.Rotate(Vector3.right * -Input.GetAxis("Vertical") * pitchSpeed * Time.deltaTime);
-        }
-        transform.Rotate(Vector3.up * Input.GetAxis("anotherHorizontal") * yawSpeed * Time.deltaTime);
-        if (!checkCanRotate())
-        {
             transform.Rotate(Vector3.up * Input.GetAxis("anotherHorizontal") * yawSpeed * Time.deltaTime);
         }
+
+
 
         //加速処理
         if (currentSpeed < maxSpeed)
