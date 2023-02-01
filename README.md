@@ -19,15 +19,12 @@
 # Features
 * 照準を合わせ、敵を攻撃する<br>
 ![射撃のデモ画像](./demoImage/demoplay.gif "射撃のデモ画像")<br>
-* PUN2（PhotonUnityNetworking2）を用いたP2P通信<br>
+* 敵に攻撃された時の墜落モーション<br>
 ![墜落のデモ画像](./demoImage/crash.gif "墜落のデモ画像")<br>
 
 # Requirement
 * Unity 2021.3.11f1
 
-# Note
-this repository rid font assets off because the size is too large.
-so you need to download font assets corresponding to Japanese.
 
 # Author
 * 一ノ宮綾平
