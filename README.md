@@ -20,7 +20,7 @@
 * 照準を合わせ、敵を攻撃する<br>
 ![射撃のデモ画像](./demoImage/demoPlay.gif "射撃のデモ画像")<br>
 * PUN2（PhotonUnityNetworking2）を用いたP2P通信<br>
-![墜落のデモ画像](./SampleP2P.gif "墜落のデモ画像")<br>
+![墜落のデモ画像](./demoImage/crash.gif "墜落のデモ画像")<br>
 
 # Requirement
 * Unity 2021.3.11f1
